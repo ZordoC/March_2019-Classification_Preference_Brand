@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1557737276373.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "34A5FACD",
+    "lastKnownWriteTime" : 658309424,
+    "last_content_update" : 1557737276373,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "C242BFE3",
+        "caption" : "BrandPredictionsTree",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=BrandPredictionsTree&cache_key=C242BFE3",
+        "displayedObservations" : 2474,
+        "environment" : "",
+        "object" : "BrandPredictionsTree",
+        "preview" : 0,
+        "totalObservations" : 2474,
+        "variables" : 1
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

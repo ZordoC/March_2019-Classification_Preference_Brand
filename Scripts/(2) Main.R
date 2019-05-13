@@ -1,7 +1,19 @@
 library(randomForest)
 library(readr)
 library(caret)
-CompleteResponsesOG <- read.csv(file = "/home/zordo/Downloads/CompleteResponses.csv" , header = TRUE , sep =",")
+library(rstudioapi)
+
+
+
+
+current_path = getActiveDocumentContext()$path
+setwd(dirname(current_path))
+setwd("..")
+rm(current_path)
+
+
+
+CompleteResponsesOG <- read.csv(file = "DataSet/CompleteResponses.csv" , header = TRUE , sep =",")
 
 CompleteResponsesOG$brand <- factor(CompleteResponsesOG$brand,
                                     levels = c(0 ,1 ) ,
@@ -162,13 +174,13 @@ varImp(RandomForestwCar)
 summary(CompleteResponsesOG$brand)
 
 predictionRandomForesASInc <- predict(RandomForest, newdata = IncompleteSurvery)
-summary(predictionRandomForesAS)
+summary(predictionRandomForesASInc)
 
 RandomForestwCar <- predict(RandomForestwCar, newdata = IncompleteSurvery)
 summary(RandomForestwCar)
 
 predictionTreeASCInc <- predict(TreeASC, newdata = IncompleteSurvery)
-summary(predictionTreeASC)
+summary(predictionTreeASCInc)
 
 
 RandomForestwALL <- train(brand ~ .,
@@ -178,7 +190,7 @@ RandomForestwALL <- train(brand ~ .,
                           tuneLength = 5 ) 
 
 predictionRandomForestALLInc <- predict(RandomForestwALL , newdata = IncompleteSurvery)
-summary(predictionRandomForestALL)
+summary(predictionRandomForestALLInc)
 varImp(RandomForestwALL)
 summary(RandomForestwALL)
 RandomForestwALL

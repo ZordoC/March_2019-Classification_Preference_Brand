@@ -1,0 +1,169 @@
+---
+title: "GGisThePlot"
+author: "José Pedro Conceição"
+date: "March 27, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(caret)
+library(readr)
+
+
+
+
+
+
+```
+
+
+
+```{r echo =FALSE}
+
+CompleteResponsesOG <- read.csv(file = "/home/zordo/Downloads/CompleteResponses.csv" , header = TRUE , sep =",")
+
+CompleteResponsesOG$brand <- factor(CompleteResponsesOG$brand,
+                                    levels = c(0 ,1 ) ,
+                                    label = c("Acer","Sony"))
+
+CompleteResponsesOG$elevel <- factor(CompleteResponsesOG$elevel,
+                                     levels = c(0,1,2,3,4),
+                                     labels = c("No high school", "High School", "Some College", "College Degree", "Masters PHD"))
+#CarBrand
+CompleteResponsesOG$car <- factor(CompleteResponsesOG$car,
+levels = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
+  labels = c("BMW","Buick", "Cadillac", "Chevrolet","Chrysler","Dodge","Ford","Honda","Hyundai","Jeep","Kia","Lincoln","Mazda","Mercedes","Mitsubishi","Nissan","Ram","Subaru","Toyota","None"))
+#Region
+CompleteResponsesOG$zipcode <- factor(CompleteResponsesOG$zipcode,
+                                      levels = c(0,1,2,3,4,5,6,7,8),
+                                      labels = c("New England","Mid Atlantic","East North Central","West North Central","South Atlantic","East South Central","West South Central","Mountain","Pacific"))
+
+
+IncompleteSurvery <- read.csv(file ="/home/zordo/Downloads/SurveyIncomplete.csv",header = TRUE , sep = ",")
+
+
+IncompleteSurvery$brand <- factor(IncompleteSurvery$brand,
+                                    levels = c(0 ,1 ) ,
+                                    label = c("Acer","Sony")
+)
+
+IncompleteSurvery$elevel <- factor(IncompleteSurvery$elevel,
+                                     levels = c(0,1,2,3,4),
+                                     labels = c("No high school", "High School", "Some College", "College Degree", "Masters PHD"))
+#CarBrand
+IncompleteSurvery$car <- factor(IncompleteSurvery$car,
+                                  levels = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
+                                  labels = c("BMW","Buick", "Cadillac", "Chevrolet","Chrysler","Dodge","Ford","Honda","Hyundai","Jeep","Kia","Lincoln","Mazda","Mercedes","Mitsubishi","Nissan","Ram","Subaru","Toyota","None"))
+#Region
+IncompleteSurvery$zipcode <- factor(IncompleteSurvery$zipcode,
+                                      levels = c(0,1,2,3,4,5,6,7,8),
+                                      labels = c("New England","Mid Atlantic","East North Central","West North Central","South Atlantic","East South Central","West South Central","Mountain","Pacific"))
+
+
+```
+
+#GG-Plot tutorial 
+
+##Histogram
+
+
+```{r}
+
+
+
+ggplot(CompleteResponsesOG , mapping = aes(x=salary)) + geom_histogram(color='red',fill='gray')
+
+
+```
+
+
+
+##BarPlot
+
+
+```{r}
+
+
+ ggplot(CompleteResponsesOG , aes(x=brand ,fill= brand)) + geom_bar() 
+
+
+
+```
+
+
+## Brand and Salary bar-plot
+
+
+
+
+```{r}
+ggplot(CompleteResponsesOG,
+       aes(x=salary,fill=brand))+
+      geom_histogram(col='black', bins = 20)
+
+
+p <- ggplot(CompleteResponsesOG, aes(x=salary,fill= brand))
+p + geom_histogram(col='black', bins = 20)
+
+
+
+``` 
+
+
+## Facets 
+
+Salary Histograms
+
+```{r}
+
+p <- ggplot(CompleteResponsesOG, aes(x=salary,fill=brand)) 
+
+p + geom_histogram(color='black',bins=20) + facet_wrap(CompleteResponsesOG$elevel)
+
+
+
+``` 
+
+
+
+Fixing the x-axis 
+
+
+
+
+```{r}
+p <- ggplot(CompleteResponsesOG,aes(x=salary,fill=brand))
+
+p + geom_histogram(color='black',bins=20) + facet_wrap(CompleteResponsesOG$elevel,scales = "free_x")
+
+
+```
+
+
+## Statistcs
+
+
+
+```{r}
+
+
+p <- ggplot(CompleteResponsesOG, aes(x=age,y =salary,col=brand))
+
+p + geom_point() + geom_smooth()
+
+
+
+```
+
+
+
+```{r}
+ggplot(CompleteResponsesOG,
+       aes(x=brand, y=salary, fill=brand)) + 
+  geom_boxplot()+
+  stat_summary(fun.y=median, colour="black", geom="text", 
+               vjust=-0.7, aes(label=round(..y.., digits=1)))
+
+```
+
